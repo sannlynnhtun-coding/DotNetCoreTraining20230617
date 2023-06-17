@@ -59,7 +59,8 @@ namespace DotNetCoreTraining20230617.DbService.Services
                 cmd.Parameters.AddWithValue(sqlParameter.ParameterName, sqlParameter.Value);
             }
 
-            SqlDataAdapter adapter = new SqlDataAdapter(query, sqlConnection);
+            //SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
 
