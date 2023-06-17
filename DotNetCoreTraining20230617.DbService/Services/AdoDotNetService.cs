@@ -53,13 +53,13 @@ namespace DotNetCoreTraining20230617.DbService.Services
             SqlConnection sqlConnection = CreateConnection();
             await sqlConnection.OpenAsync();
 
-            SqlCommand cmd = new SqlCommand(query, sqlConnection);
+            SqlCommand cmd = new SqlCommand();
             foreach (var sqlParameter in sqlParameters)
             {
                 cmd.Parameters.AddWithValue(sqlParameter.ParameterName, sqlParameter.Value);
             }
 
-            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlDataAdapter adapter = new SqlDataAdapter(query, sqlConnection);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
 

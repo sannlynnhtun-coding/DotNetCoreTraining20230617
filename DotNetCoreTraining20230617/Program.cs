@@ -12,8 +12,9 @@ SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringB
     Password = "sa@123"
 };
 
+
 AdoDotNetService adoDotNetService = new AdoDotNetService(sqlConnectionStringBuilder);
-var lst = await adoDotNetService.Query<BlogDataModel>("select * from tbl_blog with (nolock) order by blog_id desc");
+var lst = await adoDotNetService.Query<BlogDataModel>("select * from tbl_blog with (nolock) order by Blog_Id desc");
 
 Console.Write("Press any key to continue...");
 Console.ReadKey();
