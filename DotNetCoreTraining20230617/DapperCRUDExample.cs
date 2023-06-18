@@ -27,10 +27,8 @@ namespace DotNetCoreTraining20230617
                 //Password = "sa@123",
                 //TrustServerCertificate = true
             };
-            //List<BlogDataModel> lstData = new List<BlogDataModel>();
-            BlogDataModel lstData = new BlogDataModel();
             DapperService dapperService = new DapperService(sqlConnectionStringBuilder);
-            var lst = await dapperService.Query<BlogDataModel>("select * from tbl_blog with (nolock) order by Blog_Id desc", lstData);
+            var lst = await dapperService.Query<BlogDataModel>("select * from tbl_blog with (nolock) order by Blog_Id desc", new BlogDataModel());
             var jsonstr = JsonConvert.SerializeObject(lst, Formatting.Indented);
             Console.WriteLine(jsonstr);
 
@@ -52,27 +50,27 @@ namespace DotNetCoreTraining20230617
             Console.WriteLine("{0}", dapperCreate == 1 ? "CreateBlog Success" : "CreateBlog Fail");
             #endregion
 
-            #region Dapper GetByID
+            #region dapper getbyid
             var id = lst[0].Blog_Id;
             #endregion
 
-            #region Dapper Update
-            BlogDataModel updateDapper = new BlogDataModel
+            #region dapper update
+            BlogDataModel updatedapper = new BlogDataModel
             {
-                Blog_Title = "Test5",
-                Blog_Author = "Test5",
-                Blog_Content = "Test5"
+                Blog_Title = "Test3002",
+                Blog_Author = "Test3002",
+                Blog_Content = "Test3002"
             };
-            var update = await dapperService.Execute($@"UPDATE [dbo].[Tbl_Blog]
-                                 SET [Blog_Title] = '{updateDapper.Blog_Title}' 
-                                  ,[Blog_Author] = '{updateDapper.Blog_Author}'
-                                  ,[Blog_Content] = '{updateDapper.Blog_Content}'
-                             WHERE Blog_Id = {id} ", lstData);
-            Console.WriteLine("{0}", update == 1 ? "UpdateBlog Success" : "UpdateBlog Fail");
+            var update = await dapperService.Execute($@"update [dbo].[tbl_blog]
+                                 set [blog_title] = '{updatedapper.Blog_Title}' 
+                                  ,[blog_author] = '{updatedapper.Blog_Author}'
+                                  ,[blog_content] = '{updatedapper.Blog_Content}'
+                             where Blog_Id = {id} ", new { Blog_Id = id });
+            Console.WriteLine("{0}", update == 1 ? "updateblog success" : "updateblog fail");
             #endregion
 
             #region dapper delete
-            var delete = await dapperService.Execute($"delete from Tbl_blog where Blog_Id = @BlogId", new { BlogId = id });
+            var delete = await dapperService.Execute($"delete from Tbl_blog where Blog_Id = {id}", new { Blog_Id = id });
             Console.WriteLine("{0}", delete == 1 ? "DeleteBlog Success" : "DeleteBlog Fail");
             #endregion
         }
