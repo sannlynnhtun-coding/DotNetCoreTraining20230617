@@ -1,6 +1,7 @@
 ﻿using DotNetCoreTraining20230617.DbService.Services;
 using DotNetCoreTraining20230617.Models;
 using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,8 @@ namespace DotNetCoreTraining20230617
             BlogDataModel lstData = new BlogDataModel();
             DapperService dapperService = new DapperService(sqlConnectionStringBuilder);
             var lst = await dapperService.Query<BlogDataModel>("select * from tbl_blog with (nolock) order by Blog_Id desc", lstData);
+            var jsonstr = JsonConvert.SerializeObject(lst, Formatting.Indented);
+            Console.WriteLine(jsonstr);
 
             #region Dapper create
             BlogDataModel createBlog = new BlogDataModel
@@ -46,6 +49,7 @@ namespace DotNetCoreTraining20230617
                   ('{createBlog.Blog_Title}'
                   ,'{createBlog.Blog_Author}'
                   ,'{createBlog.Blog_Content}')", lstData);
+            Console.WriteLine("{0}", dapperCreate == 1 ? "CreateBlog Success" : "CreateBlog Fail");
             #endregion
 
             #region Dapper GetByID
@@ -64,10 +68,12 @@ namespace DotNetCoreTraining20230617
                                   ,[Blog_Author] = '{updateDapper.Blog_Author}'
                                   ,[Blog_Content] = '{updateDapper.Blog_Content}'
                              WHERE Blog_Id = {id} ", lstData);
+            Console.WriteLine("{0}", update == 1 ? "UpdateBlog Success" : "UpdateBlog Fail");
             #endregion
 
             #region dapper delete
             var delete = await dapperService.Execute($"delete from Tbl_blog where Blog_Id = {id}", lstData);
+            Console.WriteLine("{0}", delete == 1 ? "DeleteBlog Success" : "DeleteBlog Fail");
             #endregion
         }
     }

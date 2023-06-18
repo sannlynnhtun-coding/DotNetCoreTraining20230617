@@ -19,8 +19,7 @@ namespace DotNetCoreTraining20230617
                 DataSource = ".",
                 InitialCatalog = "testdb",
                 UserID = "sa",
-                Password = "sa@123",
-                TrustServerCertificate = true
+                Password = "sa@123"
 
                 //DataSource = "DESKTOP-NKQIS3G",
                 //InitialCatalog = "testdb",

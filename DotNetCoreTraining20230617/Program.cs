@@ -11,7 +11,7 @@ SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringB
     InitialCatalog = "testdb",
     UserID = "sa",
     Password = "sa@123",
-    TrustServerCertificate = true
+
 };
 
 //AdoDotNetService adoDotNetService = new AdoDotNetService(sqlConnectionStringBuilder);
