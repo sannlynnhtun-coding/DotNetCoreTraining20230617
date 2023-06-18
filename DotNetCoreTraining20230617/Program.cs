@@ -5,13 +5,14 @@ using Microsoft.Data.SqlClient;
 
 Console.WriteLine("Hello, World!");
 
-//SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringBuilder()
-//{
-//    DataSource = ".",
-//    InitialCatalog = "testdb",
-//    UserID = "sa",
-//    Password = "sa@123"
-//};
+SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringBuilder()
+{
+    DataSource = ".",
+    InitialCatalog = "testdb",
+    UserID = "sa",
+    Password = "sa@123",
+    TrustServerCertificate = true
+};
 
 //AdoDotNetService adoDotNetService = new AdoDotNetService(sqlConnectionStringBuilder);
 //var lst = await adoDotNetService.Query<BlogDataModel>("select * from tbl_blog with (nolock) order by blog_id desc");
