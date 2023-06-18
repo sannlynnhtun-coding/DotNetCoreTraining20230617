@@ -47,8 +47,18 @@ namespace DotNetCoreTraining20230617
                   ,@Blog_Author
                   ,@Blog_Content)";
 
-            List<SqlParameterModel> parameters = new List<SqlParameterModel>();
-            parameters.Add(new SqlParameterModel("@Blog_Title", "test"));
+            //List<SqlParameterModel> parameters = new List<SqlParameterModel>();
+            //parameters.Add(new SqlParameterModel("@Blog_Title", "test"));
+            //parameters.Add(new SqlParameterModel("@Blog_Author", "test"));
+            //parameters.Add(new SqlParameterModel("@Blog_Content", "test"));
+
+            SqlParameterModel[] parameters = new SqlParameterModel[]
+            {
+                new SqlParameterModel("@Blog_Title", "test"),
+                new SqlParameterModel("@Blog_Author", "test"),
+                new SqlParameterModel("@Blog_Content", "test")
+            };
+
             var insertResult = await adoDotNetService.Execute(insertQuery, parameters);
 
             Console.WriteLine("Message :{0}", insertResult == 1 ? "Create Success" : "Create Fail");
@@ -75,8 +85,12 @@ namespace DotNetCoreTraining20230617
 
             #region GetByID
 
-            var getByIDQuery = $"select * from tbl_blog where Blog_Id = {id}";
-            var getByIdData = await adoDotNetService.Query<BlogDataModel>(getByIDQuery);
+            var getByIDQuery = "select * from tbl_blog where Blog_Id = @Id";
+            parameters = new SqlParameterModel[]
+               {
+                    new SqlParameterModel("@Id",id),
+               };
+            var getByIdData = await adoDotNetService.Query<BlogDataModel>(getByIDQuery, parameters);
             var getByIdLstData = data.AsEnumerable().Select(x => new BlogViewModel
             {
                 Id = x.Blog_Id,
@@ -98,11 +112,18 @@ namespace DotNetCoreTraining20230617
                 Blog_Content = "blogupdated"
             };
             string updatequery = $@"update [dbo].[tbl_blog]
-                                 set [blog_title] = '{updateDataModel.Blog_Title}' 
-                                  ,[blog_author] = '{updateDataModel.Blog_Author}'
-                                  ,[blog_content] = '{updateDataModel.Blog_Content}'
-                             where blog_id = {id} ";
-            var updateresult = await adoDotNetService.Execute(updatequery);
+                                 set [blog_title] = @Blog_Title
+                                  ,[blog_author] = @Blog_Title
+                                  ,[blog_content] = @Blog_Title
+                             where blog_id = @Id ";
+            parameters = new SqlParameterModel[]
+            {
+                new SqlParameterModel("@Blog_Title", "test"),
+                new SqlParameterModel("@Blog_Author", "test"),
+                new SqlParameterModel("@Blog_Content", "test"),
+                new SqlParameterModel("@Id",id)
+            };
+            var updateresult = await adoDotNetService.Execute(updatequery, parameters);
 
             Console.WriteLine("message :{0}", updateresult == 1 ? "update success" : "update fail");
 
@@ -110,8 +131,12 @@ namespace DotNetCoreTraining20230617
 
             #region Delete
 
-            string deleteQuery = $"Delete from tbl_blog where Blog_Id = {id}";
-            var deleteResult = await adoDotNetService.Execute(deleteQuery);
+            string deleteQuery = $"Delete from tbl_blog where Blog_Id = @Id";
+            parameters = new SqlParameterModel[]
+              {
+                    new SqlParameterModel("@Id",id),
+              };
+            var deleteResult = await adoDotNetService.Execute(deleteQuery, parameters);
 
             Console.WriteLine("Message => {0}", deleteResult == 1 ? "Delete success" : "Delete fail");
 

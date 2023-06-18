@@ -16,16 +16,16 @@ namespace DotNetCoreTraining20230617
         {
             SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringBuilder()
             {
-                //DataSource = ".",
-                //InitialCatalog = "testdb",
-                //UserID = "sa",
-                //Password = "sa@123"
-
-                DataSource = ".\\SQL2022",
-                InitialCatalog = "Blog",
+                DataSource = ".",
+                InitialCatalog = "testdb",
                 UserID = "sa",
-                Password = "sa@123",
-                TrustServerCertificate = true
+                Password = "sa@123"
+
+                //DataSource = ".\\SQL2022",
+                //InitialCatalog = "Blog",
+                //UserID = "sa",
+                //Password = "sa@123",
+                //TrustServerCertificate = true
             };
             //List<BlogDataModel> lstData = new List<BlogDataModel>();
             BlogDataModel lstData = new BlogDataModel();
