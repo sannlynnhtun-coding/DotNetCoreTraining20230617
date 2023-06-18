@@ -18,15 +18,15 @@ namespace DotNetCoreTraining20230617
         {
             SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringBuilder()
             {
-                //DataSource = ".",
-                //InitialCatalog = "testdb",
-                //UserID = "sa",
-                //Password = "sa@123"
-
-                DataSource = "DESKTOP-NKQIS3G",
+                DataSource = ".",
                 InitialCatalog = "testdb",
-                IntegratedSecurity = true,
-                TrustServerCertificate = true
+                UserID = "sa",
+                Password = "sa@123"
+
+                //DataSource = "DESKTOP-NKQIS3G",
+                //InitialCatalog = "testdb",
+                //IntegratedSecurity = true,
+                //TrustServerCertificate = true
             };
 
             AppDbContext efService = new AppDbContext(sqlConnectionStringBuilder);

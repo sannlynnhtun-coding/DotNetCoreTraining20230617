@@ -21,6 +21,8 @@ Console.WriteLine("Hello, World!");
 //var lst = await adoDotNetService.Query<BlogDataModel>("select * from tbl_blog with (nolock) order by blog_id desc");
 
 await EFCRUDExample.RunAsync();
+await AdoDotNetCRUDExample.RunAsync();
+await DapperCRUDExample.RunAsync();
 
 Console.Write("Press any key to continue...");
 Console.ReadKey();
