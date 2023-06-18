@@ -46,9 +46,9 @@ namespace DotNetCoreTraining20230617
                   ,[Blog_Author]
                   ,[Blog_Content])
             VALUES
-                  ('{createBlog.Blog_Title}'
-                  ,'{createBlog.Blog_Author}'
-                  ,'{createBlog.Blog_Content}')", lstData);
+                  (@Blog_Title
+                  ,@Blog_Author
+                  ,@Blog_Content)", createBlog);
             Console.WriteLine("{0}", dapperCreate == 1 ? "CreateBlog Success" : "CreateBlog Fail");
             #endregion
 
@@ -72,7 +72,7 @@ namespace DotNetCoreTraining20230617
             #endregion
 
             #region dapper delete
-            var delete = await dapperService.Execute($"delete from Tbl_blog where Blog_Id = {id}", lstData);
+            var delete = await dapperService.Execute($"delete from Tbl_blog where Blog_Id = @BlogId", new { BlogId = id });
             Console.WriteLine("{0}", delete == 1 ? "DeleteBlog Success" : "DeleteBlog Fail");
             #endregion
         }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DotNetCoreTraining20230617
 {
-    internal class AdoDotNetExample
+    internal class AdoDotNetCRUDExample
     {
         public static async Task RunAsync()
         {
@@ -36,19 +36,20 @@ namespace DotNetCoreTraining20230617
                 Blog_Title = "Blog Insert",
                 Blog_Author = "Blog Insert",
                 Blog_Content = "Blog Insert"
-
             };
 
             string insertQuery = $@"INSERT INTO [dbo].[Tbl_Blog]
-           ([Blog_Title]
-           ,[Blog_Author]
-           ,[Blog_Content])
-     VALUES
-           ('{insertModel.Blog_Title}'
-           ,'{insertModel.Blog_Author}'
-           ,'{insertModel.Blog_Content}')";
+                  ([Blog_Title]
+                  ,[Blog_Author]
+                  ,[Blog_Content])
+            VALUES
+                  (@Blog_Title
+                  ,@Blog_Author
+                  ,@Blog_Content)";
 
-            var insertResult = await adoDotNetService.Execute(insertQuery);
+            List<SqlParameterModel> parameters = new List<SqlParameterModel>();
+            parameters.Add(new SqlParameterModel("@Blog_Title", "test"));
+            var insertResult = await adoDotNetService.Execute(insertQuery, parameters);
 
             Console.WriteLine("Message :{0}", insertResult == 1 ? "Create Success" : "Create Fail");
 
