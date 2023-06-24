@@ -4,4 +4,12 @@
     {
         public string DbConnection { get; set; }
     }
+    
+    public enum EnumRespType
+    {
+    Success,
+    Information,
+    Warning,
+    Error
+    }
 }
