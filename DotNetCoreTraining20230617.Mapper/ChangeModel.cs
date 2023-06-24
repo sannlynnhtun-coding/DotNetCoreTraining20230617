@@ -23,9 +23,9 @@ public static class ChangeModel
         var model = new BlogDataModel
         {
             Blog_Id = item.Id,
-            Blog_Title =item.Title, 
-            Blog_Author =item.Author,
-            Blog_Content =item.Content,
+            Blog_Title = item.Title,
+            Blog_Author = item.Author,
+            Blog_Content = item.Content,
         };
 
         return model;

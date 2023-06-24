@@ -15,6 +15,7 @@ namespace DotNetCoreTraining20230617
         public static async Task RunAsync()
         {
             DapperService dapperService = new DapperService(AppSetting.GetDbConnection());
+
             var lst = await dapperService.Query<BlogDataModel>("select * from tbl_blog with (nolock) order by Blog_Id desc", new BlogDataModel());
             var jsonstr = JsonConvert.SerializeObject(lst, Formatting.Indented);
             Console.WriteLine(jsonstr);

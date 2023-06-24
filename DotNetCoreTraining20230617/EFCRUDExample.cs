@@ -1,6 +1,5 @@
 ﻿using DotNetCoreTraining20230617.DbService.Services;
 using DotNetCoreTraining20230617.Models;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
@@ -94,15 +93,6 @@ namespace DotNetCoreTraining20230617
             }
 
             #endregion
-        }
-    }
-
-    public static class AppSetting
-    {
-        public static AppSettingModel Setting { get; set; }
-        public static SqlConnectionStringBuilder GetDbConnection()
-        {
-            return new SqlConnectionStringBuilder(Setting.ConnectionStrings.DbConnection);
         }
     }
 }

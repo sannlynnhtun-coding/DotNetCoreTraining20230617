@@ -21,7 +21,8 @@ namespace DotNetCoreTraining20230617.WebApi.Features
         {
             return BadRequest(new
             {
-                RespCode = 400, RespDesp = message,
+                RespCode = 400,
+                RespDesp = message,
                 RespType = EnumRespType.Warning
             });
         }
@@ -35,7 +36,18 @@ namespace DotNetCoreTraining20230617.WebApi.Features
         {
             return StatusCode(500, new
             {
-                RespCode = 999, RespDesp = ex.ToString(),
+                RespCode = 999,
+                RespDesp = ex.ToString(),
+                RespType = EnumRespType.Error
+            });
+        }
+
+        public IActionResult PageNotFoundError(string message)
+        {
+            return NotFound(new
+            {
+                RespCode = 404,
+                RespDesp = message,
                 RespType = EnumRespType.Error
             });
         }
