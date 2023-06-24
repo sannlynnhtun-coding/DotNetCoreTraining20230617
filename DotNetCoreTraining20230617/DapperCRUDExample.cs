@@ -14,20 +14,7 @@ namespace DotNetCoreTraining20230617
     {
         public static async Task RunAsync()
         {
-            SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringBuilder()
-            {
-                DataSource = ".",
-                InitialCatalog = "testdb",
-                UserID = "sa",
-                Password = "sa@123"
-
-                //DataSource = ".\\SQL2022",
-                //InitialCatalog = "Blog",
-                //UserID = "sa",
-                //Password = "sa@123",
-                //TrustServerCertificate = true
-            };
-            DapperService dapperService = new DapperService(sqlConnectionStringBuilder);
+            DapperService dapperService = new DapperService(AppSetting.GetDbConnection());
             var lst = await dapperService.Query<BlogDataModel>("select * from tbl_blog with (nolock) order by Blog_Id desc", new BlogDataModel());
             var jsonstr = JsonConvert.SerializeObject(lst, Formatting.Indented);
             Console.WriteLine(jsonstr);

@@ -1,0 +1,5 @@
+﻿{
+  "ConnectionStrings": {
+    "DbConnection": "Data Source=.;Initial Catalog=TestDb;User ID=sa;Password=sa@123;"
+  }
+}

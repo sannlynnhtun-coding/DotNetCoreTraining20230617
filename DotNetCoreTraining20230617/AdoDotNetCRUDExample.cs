@@ -10,24 +10,11 @@ using System.Threading.Tasks;
 
 namespace DotNetCoreTraining20230617
 {
-    internal class AdoDotNetCRUDExample
+    public class AdoDotNetCRUDExample
     {
         public static async Task RunAsync()
         {
-            SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringBuilder()
-            {
-                DataSource = ".",
-                InitialCatalog = "testdb",
-                UserID = "sa",
-                Password = "sa@123"
-
-                //DataSource = "DESKTOP-NKQIS3G",
-                //InitialCatalog = "testdb",
-                //IntegratedSecurity = true,
-                //TrustServerCertificate = true
-            };
-
-            AdoDotNetService adoDotNetService = new AdoDotNetService(sqlConnectionStringBuilder);
+            AdoDotNetService adoDotNetService = new AdoDotNetService(AppSetting.GetDbConnection());
 
             #region Create
 

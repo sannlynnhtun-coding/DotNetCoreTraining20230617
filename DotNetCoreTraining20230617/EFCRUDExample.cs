@@ -13,31 +13,9 @@ namespace DotNetCoreTraining20230617
 {
     public class EFCRUDExample
     {
-
         public static async Task RunAsync()
         {
-            SqlConnectionStringBuilder sqlConnectionStringBuilder = new SqlConnectionStringBuilder()
-            {
-                DataSource = ".",
-                InitialCatalog = "testdb",
-                UserID = "sa",
-                Password = "sa@123"
-
-                //DataSource = "DESKTOP-NKQIS3G",
-                //InitialCatalog = "testdb",
-                //IntegratedSecurity = true,
-                //TrustServerCertificate = true
-
-
-                //DataSource = ".\\SQL2022",
-                //InitialCatalog = "Blog",
-                //UserID = "sa",
-                //Password = "sa@123",
-                //TrustServerCertificate = true
-            };
-
-            AppDbContext efService = new AppDbContext(sqlConnectionStringBuilder);
-
+            AppDbContext efService = new AppDbContext(AppSetting.GetDbConnection());
 
             #region Create
 
@@ -66,41 +44,65 @@ namespace DotNetCoreTraining20230617
                         .Skip(skipRowCount)
                         .Take(pageSize).ToListAsync();
 
-            Console.WriteLine(JsonConvert.SerializeObject(blogData,Formatting.Indented));
+            Console.WriteLine(JsonConvert.SerializeObject(blogData, Formatting.Indented));
 
             #endregion
 
             #region Id
+
             int id = blogData[0].Blog_Id;
+
             #endregion
 
-            #region update
-            var updateitem = await efService.Blogs.AsNoTracking().FirstOrDefaultAsync(x => x.Blog_Id == id);
-            if (updateitem == null)
+            #region Update
+
+            var updateItem = await efService.Blogs
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Blog_Id == id);
+            if (updateItem == null)
             {
                 Console.WriteLine("No data found!");
             }
-            updateitem.Blog_Title = "Testing2002";
-            updateitem.Blog_Author = "Testing2002";
-            updateitem.Blog_Content = "Testing2002";
-            efService.Entry(updateitem).State = EntityState.Modified;
-            efService.Blogs.Update(updateitem);
-            var result=efService.SaveChanges();
-            Console.WriteLine("Message:{0}", result == 1 ? "BlogItem Update Success" : "BlogItem Update Fail");
+            else
+            {
+                updateItem.Blog_Title = "Testing2002";
+                updateItem.Blog_Author = "Testing2002";
+                updateItem.Blog_Content = "Testing2002";
+                efService.Entry(updateItem).State = EntityState.Modified;
+                efService.Blogs.Update(updateItem);
+                var result = efService.SaveChanges();
+                Console.WriteLine("Message:{0}", result == 1 ? "BlogItem Update Success" : "BlogItem Update Fail");
+            }
+
             #endregion
 
+            #region Delete
 
-            #region delete
-            var deleteitem = await efService.Blogs.AsNoTracking().FirstOrDefaultAsync(x => x.Blog_Id == id);
-            if (deleteitem == null)
+            var deleteItem = await efService.Blogs
+                //.AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Blog_Id == id);
+            if (deleteItem == null)
             {
                 Console.WriteLine("No data found!");
             }
-            efService.Entry(deleteitem).State = EntityState.Deleted;
-            efService.Blogs.Remove(deleteitem);
-            var deleteResult = efService.SaveChanges();
-            Console.WriteLine("Message:{0}", deleteResult == 1 ? "BlogItem Delete Success" : "BlogItem Delete Fail");
+            else
+            {
+                //efService.Entry(deleteitem).State = EntityState.Deleted;
+                efService.Blogs.Remove(deleteItem);
+                var deleteResult = efService.SaveChanges();
+                Console.WriteLine("Message:{0}", deleteResult == 1 ? "BlogItem Delete Success" : "BlogItem Delete Fail");
+            }
+
             #endregion
+        }
+    }
+
+    public static class AppSetting
+    {
+        public static AppSettingModel Setting { get; set; }
+        public static SqlConnectionStringBuilder GetDbConnection()
+        {
+            return new SqlConnectionStringBuilder(Setting.ConnectionStrings.DbConnection);
         }
     }
 }

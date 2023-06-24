@@ -8,12 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\DotNetCoreTraining20230617.DbService\DotNetCoreTraining20230617.DbService.csproj" />
+    <ProjectReference Include="..\DotNetCoreTraining20230617.Models\DotNetCoreTraining20230617.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DotNetCoreTraining20230617.DbService\DotNetCoreTraining20230617.DbService.csproj" />
-    <ProjectReference Include="..\DotNetCoreTraining20230617.Models\DotNetCoreTraining20230617.Models.csproj" />
+    <None Update="appsetting.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
