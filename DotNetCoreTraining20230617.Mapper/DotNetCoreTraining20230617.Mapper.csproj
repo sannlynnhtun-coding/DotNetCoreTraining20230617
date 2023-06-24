@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\DotNetCoreTraining20230617.Models\DotNetCoreTraining20230617.Models.csproj" />
+    </ItemGroup>
+
 </Project>
