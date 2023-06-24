@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DotNetCoreTraining20230617.DbService\DotNetCoreTraining20230617.DbService.csproj" />
+    <ProjectReference Include="..\DotNetCoreTraining20230617.Mapper\DotNetCoreTraining20230617.Mapper.csproj" />
     <ProjectReference Include="..\DotNetCoreTraining20230617.Models\DotNetCoreTraining20230617.Models.csproj" />
     <ProjectReference Include="..\DotNetCoreTraining20230617.Shared\DotNetCoreTraining20230617.Shared.csproj" />
   </ItemGroup>
