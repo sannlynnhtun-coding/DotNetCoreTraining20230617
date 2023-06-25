@@ -70,20 +70,33 @@ namespace DotNetCoreTraining20230617.WebApi.Features.Blog
             return Ok(model);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, BlogViewModel blogViewModel)
         {
-            if (id == 0)
+            var item = await _appDbContext.Blogs.FirstOrDefaultAsync(x => x.Blog_Id == id);
+            if (item == null)
             {
                 return NotFound();
             }
-            return Ok();
+            item.Blog_Title = blogViewModel.Title;
+            item.Blog_Author = blogViewModel.Author;
+            item.Blog_Content = blogViewModel.Content;
+            _appDbContext.Blogs.Update(item);
+            var result = await _appDbContext.SaveChangesAsync();
+            return Success(new { RowAffected = result });
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            return Ok();
+            var item = await _appDbContext.Blogs.FirstOrDefaultAsync(x => x.Blog_Id == id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            _appDbContext.Blogs.Remove(item);
+            var result = await _appDbContext.SaveChangesAsync();
+            return Success(new { Message = result == 1 ? "Deleting Successful" : "Deleting Failed" });
         }
     }
 }

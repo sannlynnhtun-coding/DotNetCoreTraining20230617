@@ -1,7 +1,8 @@
 ﻿{
   "ConnectionStrings": {
-    "DbConnection": "Data Source=.;Initial Catalog=TestDb;User ID=sa;Password=sa@123;"
+    //"DbConnection": "Data Source=.;Initial Catalog=TestDb;User ID=sa;Password=sa@123;",
     //"DbConnection": "Data Source=DESKTOP-NKQIS3G;Initial Catalog=testdb;IntegratedSecurity = true;TrustServerCertificate = true;"
+    "DbConnection": "Data Source=.\\SQL2022;Initial Catalog=Blog;User ID=sa;Password=sa@123;TrustServerCertificate = true;"
 
   }
 }
